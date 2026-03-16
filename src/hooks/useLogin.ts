@@ -37,9 +37,9 @@ export function useLogin() {
     try {
       const data = await login(username, password, bookingCode);
       if (data.bookingCode) {
-        sessionStorage.setItem('bookingCode', data.bookingCode);
+        localStorage.setItem('bookingCode', data.bookingCode);
       } else {
-        sessionStorage.removeItem('bookingCode');
+        localStorage.removeItem('bookingCode');
       }
       router.push('/destinations');
     } catch (error) {

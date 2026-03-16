@@ -13,7 +13,7 @@ export default function DestinationsPage() {
   const { destinations, loading, error } = useDestinations();
 
   useEffect(() => {
-    setBookingCode(sessionStorage.getItem('bookingCode'));
+    setBookingCode(localStorage.getItem('bookingCode'));
   }, []);
 
   async function handleLogout() {
@@ -21,7 +21,7 @@ export default function DestinationsPage() {
 
     try {
       await fetch('/api/logout', { method: 'POST' });
-      sessionStorage.removeItem('bookingCode');
+      localStorage.removeItem('bookingCode');
       router.replace('/');
     } finally {
       setIsLoggingOut(false);
