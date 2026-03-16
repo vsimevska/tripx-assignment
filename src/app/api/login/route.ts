@@ -23,21 +23,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: 'Login failed' }, { status: 500 });
     }
 
-    const response = NextResponse.json({ authenticated: true });
+    const response = NextResponse.json({
+      authenticated: true,
+      ...(bookingCode ? { bookingCode } : {}),
+    });
 
     response.cookies.set('authenticated', 'true', {
       httpOnly: true,
       path: '/',
     });
-
-    if (bookingCode) {
-      response.cookies.set('bookingCode', bookingCode, {
-        httpOnly: true,
-        path: '/',
-      });
-    } else {
-      response.cookies.delete('bookingCode');
-    }
 
     return response;
   } catch {

@@ -35,7 +35,12 @@ export function useLogin() {
     setIsLoading(true);
 
     try {
-      await login(username, password, bookingCode);
+      const data = await login(username, password, bookingCode);
+      if (data.bookingCode) {
+        sessionStorage.setItem('bookingCode', data.bookingCode);
+      } else {
+        sessionStorage.removeItem('bookingCode');
+      }
       router.push('/destinations');
     } catch (error) {
       failedLoginAttempts.current += 1;
